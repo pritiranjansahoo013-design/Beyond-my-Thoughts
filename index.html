@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beyond My Thought | A World of Ideas</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="ambient"></div>
+
+    <header>
+        <nav class="navbar">
+
+            <a href="#home" class="logo">
+                BEYOND<span>.</span>
+                <small>MY THOUGHT</small>
+            </a>
+
+            <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#founder">Founder</a>
+    <a href="#articles">Articles</a>
+    <a href="#about">About</a>
+</div>
+
+            <button class="write-btn" id="openWrite">
+                + Write a thought
+            </button>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    A SPACE FOR THE THINKING MIND
+                </p>
+
+                <h1>
+                    Not every thought<br>
+                    needs to be <span>spoken.</span>
+                </h1>
+
+                <p class="hero-text">
+                    Some thoughts deserve to be written,
+                    explored and understood.
+                    Welcome to a world beyond ordinary thinking.
+                </p>
+
+                <a href="#articles" class="explore-btn">
+                    EXPLORE IDEAS ↗
+                </a>
+
+            </div>
+
+            <div class="hero-art">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="core"></div>
+                <div class="floating-text">THINK DEEPLY</div>
+            </div>
+
+            <div class="hero-bottom">
+                <span>IDEAS · EMOTIONS · PERSPECTIVES</span>
+                <span>SCROLL TO EXPLORE ↓</span>
+            </div>
+
+        </section>
+
+<!-- FOUNDER SECTION -->
+
+<section class="founder-section" id="founder">
+
+    <div class="founder-content">
+
+        <p class="eyebrow">THE PERSON BEHIND THE THOUGHTS</p>
+
+        <div class="founder-badge">
+            ✦ FOUNDER & CREATOR
+        </div>
+
+        <h2>
+            Meet the mind<br>
+            behind <span>the vision.</span>
+        </h2>
+
+        <h3 class="founder-name">
+            Pritiranjan Sahoo
+        </h3>
+
+        <p class="founder-description">
+            I am the founder of Beyond My Thought,
+            a platform created to give ideas, thoughts
+            and perspectives a place to exist.
+
+            I believe every individual has a unique way
+            of seeing the world. Sometimes, a simple
+            thought can create a meaningful conversation.
+
+            This platform is my attempt to bring curious
+            minds together, encourage expression and
+            explore the deeper side of human thinking.
+        </p>
+
+        <div class="founder-signature">
+            <span>Created with curiosity.</span>
+            <span>Built beyond imagination.</span>
+        </div>
+
+    </div>
+
+    <div class="founder-visual">
+
+        <div class="founder-circle">
+            <span>THE<br>THINKER</span>
+        </div>
+
+        <div class="founder-orbit"></div>
+
+        <p class="founder-caption">
+            THE CREATOR OF BEYOND MY THOUGHT
+        </p>
+
+    </div>
+
+</section>
+
+        <!-- ARTICLES -->
+
+        <section class="articles-section" id="articles">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">THE THOUGHT COLLECTION</p>
+                    <h2>Ideas worth <span>exploring.</span></h2>
+                </div>
+
+                <p class="article-count" id="articleCount">
+                    00 STORIES
+                </p>
+
+            </div>
+
+            <div class="toolbar">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search for a thought..."
+                >
+
+                <select id="categoryFilter">
+                    <option value="All">All categories</option>
+                    <option value="Psychology">Psychology</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="Life">Life</option>
+                    <option value="Society">Society</option>
+                    <option value="Creativity">Creativity</option>
+                </select>
+
+            </div>
+
+            <div class="article-grid" id="articleGrid"></div>
+
+            <p class="empty-message" id="emptyMessage">
+                No thoughts found. Try another search.
+            </p>
+
+        </section>
+
+        <!-- ABOUT -->
+
+        <section class="about-section" id="about">
+
+            <p class="eyebrow">WHY WE EXIST</p>
+
+            <h2>
+                A thought is never<br>
+                just a <span>thought.</span>
+            </h2>
+
+            <p>
+                Beyond My Thought is a place where people can
+                express ideas without boundaries, discover
+                different perspectives and start meaningful
+                conversations.
+            </p>
+
+            <div class="about-line">
+                THINK. WRITE. SHARE. UNDERSTAND.
+            </div>
+
+        </section>
+
+        <!-- WRITE ARTICLE MODAL -->
+
+        <div class="modal" id="writeModal">
+
+            <div class="modal-box">
+
+                <button class="close-btn" id="closeWrite">×</button>
+
+                <p class="eyebrow">YOUR VOICE MATTERS</p>
+
+                <h2>Share a thought<span>.</span></h2>
+
+                <form id="articleForm">
+
+                    <input
+                        type="text"
+                        id="authorName"
+                        placeholder="Your name"
+                        maxlength="50"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="articleTitle"
+                        placeholder="Give your thought a title"
+                        maxlength="100"
+                        required
+                    >
+
+                    <select id="articleCategory" required>
+                        <option value="">Choose category</option>
+                        <option>Psychology</option>
+                        <option>Philosophy</option>
+                        <option>Life</option>
+                        <option>Society</option>
+                        <option>Creativity</option>
+                    </select>
+
+                    <textarea
+                        id="articleContent"
+                        placeholder="Write what is on your mind..."
+                        minlength="20"
+                        maxlength="5000"
+                        required
+                    ></textarea>
+
+                    <button class="submit-btn" type="submit">
+                        PUBLISH YOUR THOUGHT ↗
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- READ ARTICLE MODAL -->
+
+        <div class="modal" id="readModal">
+
+            <div class="modal-box read-box">
+
+                <button class="close-btn" id="closeRead">×</button>
+
+                <p class="eyebrow" id="readCategory"></p>
+
+                <h2 id="readTitle"></h2>
+
+                <p class="read-author" id="readAuthor"></p>
+
+                <div class="read-content" id="readContent"></div>
+
+                <div class="comments-area">
+
+                    <h3>Thoughts from readers</h3>
+
+                    <div id="commentsList"></div>
+
+                    <form id="commentForm">
+
+                        <input
+                            type="text"
+                            id="commentName"
+                            placeholder="Your name"
+                            maxlength="50"
+                            required
+                        >
+
+                        <textarea
+                            id="commentText"
+                            placeholder="Share your perspective..."
+                            maxlength="1000"
+                            required
+                        ></textarea>
+
+                        <button type="submit" class="submit-btn">
+                            POST COMMENT ↗
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+
+        <h2>BEYOND<span>.</span></h2>
+
+        <p>Where thoughts become conversations.</p>
+
+        <div class="footer-bottom">
+            © 2026 BEYOND MY THOUGHT · THINK BEYOND
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

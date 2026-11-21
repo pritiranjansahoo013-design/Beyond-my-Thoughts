@@ -394,7 +394,87 @@ document.getElementById("categoryFilter").addEventListener(
 
 });
 
+// LOAD ARTICLES PUBLISHED THROUGH PAGES CMS
+
+async function loadCmsArticles() {
+    const api =
+      "https://api.github.com/repos/pritiranjansahoo013-design/Beyond-my-Thoughts/contents/articles";
+
+    try {
+        const response = await fetch(api);
+
+        if (!response.ok) {
+            throw new Error("Could not load GitHub articles");
+        }
+
+        const files = await response.json();
+
+        const markdownFiles = files.filter(file =>
+            file.type === "file" && file.name.endsWith(".md")
+        );
+
+        const cmsArticles = await Promise.all(
+            markdownFiles.map(async file => {
+                const result = await fetch(file.download_url);
+
+                if (!result.ok) return null;
+
+                const markdown = await result.text();
+                const parts = markdown.split("---");
+
+                if (parts.length < 3) return null;
+
+                const frontMatter = parts[1];
+                const body = parts.slice(2).join("---").trim();
+
+                function getField(name) {
+                    const match = frontMatter.match(
+                        new RegExp("^" + name + ":\\s*(.*)$", "m")
+                    );
+
+                    return match
+                        ? match[1].trim().replace(/^["']|["']$/g, "")
+                        : "";
+                }
+
+                return {
+                    id: "cms-" + file.name,
+                    title: getField("title"),
+                    author: getField("author") || "Anonymous",
+                    category: getField("category") || "Personal",
+                    date: getField("date"),
+                    description: getField("description"),
+                    cover: getField("cover"),
+                    content: body,
+                    comments: []
+                };
+            })
+        );
+
+        const validArticles = cmsArticles.filter(article =>
+            article && article.title
+        );
+
+        // Keep visitor submissions and add CMS articles.
+        articles = [
+            ...validArticles,
+            ...articles.filter(article =>
+                !String(article.id).startsWith("cms-")
+            )
+        ];
+
+        displayArticles();
+
+    } catch (error) {
+        console.error("Pages CMS loading error:", error);
+    }
+}
+
 
 // INITIALIZE WEBSITE
 
 displayArticles();
+loadCmsArticles();
+
+
+

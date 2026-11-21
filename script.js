@@ -394,17 +394,16 @@ document.getElementById("categoryFilter").addEventListener(
 
 });
 
-// LOAD ARTICLES PUBLISHED THROUGH PAGES CMS
-
 async function loadCmsArticles() {
-    const api =
-      "https://api.github.com/repos/pritiranjansahoo013-design/Beyond-my-Thoughts/contents/articles";
+
+    const api = "https://api.github.com/repos/pritiranjansahoo013-design/Beyond-my-Thoughts/contents/articles";
 
     try {
+
         const response = await fetch(api);
 
         if (!response.ok) {
-            throw new Error("Could not load GitHub articles");
+            throw new Error("GitHub loading failed");
         }
 
         const files = await response.json();
@@ -415,25 +414,29 @@ async function loadCmsArticles() {
 
         const cmsArticles = await Promise.all(
             markdownFiles.map(async file => {
+
                 const result = await fetch(file.download_url);
 
                 if (!result.ok) return null;
 
                 const markdown = await result.text();
-                const parts = markdown.split("---");
 
-                if (parts.length < 3) return null;
+                const match = markdown.match(
+                    /^---\s*\r?\n([\s\S]*?)\r?\n---\s*(?:\r?\n|$)/
+                );
 
-                const frontMatter = parts[1];
-                const body = parts.slice(2).join("---").trim();
+                if (!match) return null;
+
+                const frontMatter = match[1];
+                const content = markdown.slice(match[0].length).trim();
 
                 function getField(name) {
-                    const match = frontMatter.match(
+                    const field = frontMatter.match(
                         new RegExp("^" + name + ":\\s*(.*)$", "m")
                     );
 
-                    return match
-                        ? match[1].trim().replace(/^["']|["']$/g, "")
+                    return field
+                        ? field[1].trim().replace(/^["']|["']$/g, "")
                         : "";
                 }
 
@@ -443,11 +446,10 @@ async function loadCmsArticles() {
                     author: getField("author") || "Anonymous",
                     category: getField("category") || "Personal",
                     date: getField("date"),
-                    description: getField("description"),
-                    cover: getField("cover"),
-                    content: body,
+                    content: content,
                     comments: []
                 };
+
             })
         );
 
@@ -455,7 +457,6 @@ async function loadCmsArticles() {
             article && article.title
         );
 
-        // Keep visitor submissions and add CMS articles.
         articles = [
             ...validArticles,
             ...articles.filter(article =>
@@ -465,16 +466,26 @@ async function loadCmsArticles() {
 
         displayArticles();
 
+        console.log("CMS articles loaded:", validArticles.length);
+
     } catch (error) {
-        console.error("Pages CMS loading error:", error);
+        console.error("CMS error:", error);
     }
 }
 
 
-// INITIALIZE WEBSITE
+// START WEBSITE
 
 displayArticles();
 loadCmsArticles();
+
+
+
+
+            
+                  
+
+
 
 
 

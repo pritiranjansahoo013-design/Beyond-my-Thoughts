@@ -1,0 +1,78 @@
+
+media:
+  input: media
+  output: /media
+
+content:
+  # Articles collection
+  - name: articles
+    label: My Articles
+    type: collection
+    path: articles
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Article Title
+        type: string
+        required: true
+
+      - name: date
+        label: Publication Date
+        type: date
+
+      - name: author
+        label: Author
+        type: string
+
+      - name: category
+        label: Category
+        type: string
+
+      - name: description
+        label: Short Description
+        type: text
+
+      - name: cover
+        label: Cover Image
+        type: image
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: body
+        label: Article Content
+        type: rich-text
+        required: true
+
+  # Founder information
+  - name: about
+    label: About Founder
+    type: file
+    path: content/about.yml
+    fields:
+      - name: name
+        label: Founder Name
+        type: string
+
+      - name: bio
+        label: About Me
+        type: text
+
+      - name: profile_image
+        label: Profile Photo
+        type: image
+
+      - name: introduction
+        label: Personal Introduction
+        type: rich-text
+
+settings:
+  commit:
+    identity: app
